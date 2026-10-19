@@ -27,5 +27,4 @@ class Room:
     def get_items(self):
                 return self.items
 
-base = Room("Intro Lobby", ["soc", "dns", "vault", "malware", "final"],
-          [])
+# base = Room("Intro Lobby", ["soc", "dns", "vault", "malware", "final"],[])
