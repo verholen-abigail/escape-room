@@ -1,44 +1,65 @@
+import re   # regular expressions
 
-import re
 
-#build regex pattern
-# \s*   = zero or more spaces (this makes spaces "optional")
-# (\d+) = one or more digits, saved as a group so we can read it later
-# \{ \} = braces must be escaped with a backslash, because { } are special in regex
-pattern = re.compile(
-    r"SAFE\s*\{\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s*\}"
-)
-# re.compile() builds the pattern once so we can reuse it on every line.
+class Vault:
 
-# Read the lines
-file = open("vault_dump.txt", encoding="utf-8")
+    # SAFE{a-b-c} with optional spaces around braces, numbers and hyphens
+    pattern = re.compile(r"SAFE\s*\{\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s*\}")
 
-found = []   # an empty list to keep all VALID candidates
+    found = list()      # valid candidates (a, b, c, matched text)
 
-for line in file:
-    match = pattern.search(line)    # look for the pattern anywhere in the line
+    token = ""          # the final token, a-b-c
 
-    if match is None:               # no candidate on this line (e.g. "SAFE{3-4-}")
-        continue                    # skip to the next line
+    matched_text = ""   # the matched text with its original spacing
 
-    # get the numbers out of the groups and make them integers
-    a = int(match.group(1))         # first  (\d+)
-    b = int(match.group(2))         # second (\d+)
-    c = int(match.group(3))         # third  (\d+)
+    check = ""          # the checksum, a+b=c
 
-    # the checksum test (Task 3)
-    if a + b == c:
-        matched_text = match.group(0)   # group(0) = the WHOLE matched text, spaces included
-        found.append((a, b, c, matched_text))
+    # read the file and keep every candidate where a + b == c
+    def set_found(self):
 
-file.close()
+        file = open("data/vault_dump.txt", encoding="utf-8")   # open file
 
-print("Valid candidates found:", len(found))
+        for line in file:                         # go through each line
+            match = self.pattern.search(line)     # look for the pattern
 
-#  there should be exactly one (Task 4)
-a, b, c, matched_text = found[0]
+            # no candidate on this line (e.g. SAFE{3-4-})
+            if(match is None):
+                continue
 
-print()
-print("TOKEN[SAFE]=" + str(a) + "-" + str(b) + "-" + str(c))
-print('EVIDENCE[SAFE].MATCH="' + matched_text + '"')
-print("EVIDENCE[SAFE].CHECK=" + str(a) + "+" + str(b) + "=" + str(c))
+            # turn the three groups into integers
+            a = int(match.group(1))
+            b = int(match.group(2))
+            c = int(match.group(3))
+
+            # the checksum test
+            if(a + b == c):
+                
+                self.found.append((a, b, c, match.group(0)))
+
+        file.close()                             
+
+        return
+
+    def main(self):
+        # find the valid sequence
+        self.set_found()
+
+        # there should be exactly one
+        if(len(self.found) != 1):
+            print("Expected 1 valid candidate, found " + str(len(self.found)))
+            return
+
+        a, b, c, self.matched_text = self.found[0]
+
+        self.token = str(a) + "-" + str(b) + "-" + str(c)
+        self.check = str(a) + "+" + str(b) + "=" + str(c)
+
+        print("TOKEN[SAFE]=" + self.token)
+        print('EVIDENCE[SAFE].MATCH="' + self.matched_text + '"')
+        print("EVIDENCE[SAFE].CHECK=" + self.check)
+
+
+# only run when this file is run directly to test, not when the game imports it
+if __name__ == "__main__":
+    vault = Vault()
+    vault.main()
