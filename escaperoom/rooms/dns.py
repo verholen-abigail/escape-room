@@ -72,7 +72,7 @@ class DNS:
         print("EVIDENCE[DNS].DECODED_LINE=" + self.sentence)
 
 
-# only run when this file is run directly, not when the game imports it
+# only run when this file is run directly while testing, not when the game imports it
 if __name__ == "__main__":
     dns = DNS()
     dns.main()
