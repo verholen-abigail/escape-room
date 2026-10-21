@@ -1,78 +1,78 @@
-
 import base64   # lets us decode Base64 text
 import codecs   # has a built-in ROT13 decoder
 
 
+class DNS:
 
-records = {}    # an empty dictionary: it will store  key -> value
+    records = dict()    # key -> value from dns.cfg
 
-file = open("dns.cfg", encoding="utf-8")   # open the file for reading
+    hint_name = ""      # which hint is the real one, e.g. hint2
 
-for line in file:                # go through the file one line at a time
-    line = line.strip()          # remove spaces/newlines at both ends
+    hint_encoding = ""  # b64 or rot13+b64
 
-    if line == "":               # skip empty lines
-        continue
-    if line.startswith("#"):     # skip comment lines (Task 1)
-        continue
-    if "=" not in line:          # skip anything that is not key=value
-        continue
+    sentence = ""       # the decoded sentence
 
-    # split at the FIRST "=" only (the 1 means "split once")
-    key, value = line.split("=", 1)
+    token = ""          # the final word, the DNS token
 
-    # strip() again because there can be spaces around key and value (Task 2)
-    records[key.strip()] = value.strip()
+    # read the file and fill the records dictionary
+    def set_records(self):
 
-file.close()                     # good habit: close the file when done
+        file = open("data/dns.cfg", encoding="utf-8")   # open the file
 
-print("Keys found:", list(records.keys()))
+        for line in file:                # go through each line
+            line = line.strip()          # remove spaces/newlines
+
+            # skip empty lines, comments and lines without =
+            if(line == "" or line.startswith("#") or "=" not in line):
+                continue
+
+            # split at the FIRST = only
+            key, value = line.split("=", 1)
+            self.records[key.strip()] = value.strip()
+
+        file.close()                     
+
+        return
+
+    # decode one payload value which returns the text
+    def decode_value(self, encoded_value):
+        encoding, payload = encoded_value.split(":", 1)
+
+        if(encoding == "b64"):
+            raw_bytes = base64.b64decode(payload)
+
+        elif(encoding == "rot13+b64"):
+            # reverse order of ROT13 first, then Base64
+            undone_rot13 = codecs.decode(payload, "rot13")
+            raw_bytes = base64.b64decode(undone_rot13)
+
+        else:
+            raise ValueError("Unknown encoding: " + encoding)
+
+        self.hint_encoding = encoding    # remember the last encoding used
+        return raw_bytes.decode("utf-8")  # fails if not valid UTF-8
+
+    def main(self):
+        # set up the records
+        self.set_records()
+
+        # token_tag tells us which hint is real
+        tag = self.decode_value(self.records["token_tag"])
+        self.hint_name = "hint" + tag
+
+        # decode only that hint
+        self.sentence = self.decode_value(self.records[self.hint_name])
+
+        # remove the final '.', take the last word
+        self.token = self.sentence.rstrip(".").split()[-1]
+
+        print("TOKEN[DNS]=" + self.token)
+        print("EVIDENCE[DNS].KEY=" + self.hint_name)
+        print("EVIDENCE[DNS].ENCODING=" + self.hint_encoding)
+        print("EVIDENCE[DNS].DECODED_LINE=" + self.sentence)
 
 
-def decode_value(encoded_value):
-    # Task 3: split at the first ":" into encoding name and payload
-    encoding, payload = encoded_value.split(":", 1)
-
-    if encoding == "b64":
-        # Base64 text -> bytes
-        raw_bytes = base64.b64decode(payload)
-
-    elif encoding == "rot13+b64":
-        # Reverse order! The puzzle made it:  Base64 first, then ROT13.
-        # So we undo it:  ROT13 first, then Base64.
-        undone_rot13 = codecs.decode(payload, "rot13")
-        raw_bytes = base64.b64decode(undone_rot13)
-
-    else:
-        raise ValueError("Unknown encoding: " + encoding)
-
-    # Task 6: bytes -> text. This fails with an error if it is not valid UTF-8.
-    text = raw_bytes.decode("utf-8")
-
-    # return BOTH the text and the encoding name, we need both later
-    return text, encoding
-
-
-
-tag_text, tag_encoding = decode_value(records["token_tag"])
-print("token_tag decodes to:", tag_text)
-
-hint_name = "hint" + tag_text    # "hint" + "2"  ->  "hint2"
-print("Authoritative hint is:", hint_name)
-
-
-
-sentence, hint_encoding = decode_value(records[hint_name])
-print("Decoded sentence:", sentence)
-
-sentence_no_period = sentence.rstrip(".")   # remove the final period
-words = sentence_no_period.split()          # split into a list of words
-token = words[-1]                           # [-1] means the LAST item
-
-
-
-print()
-print("TOKEN[DNS]=" + token)
-print("EVIDENCE[DNS].KEY=" + hint_name)
-print("EVIDENCE[DNS].ENCODING=" + hint_encoding)
-print("EVIDENCE[DNS].DECODED_LINE=" + sentence)
+# only run when this file is run directly while testing, not when the game imports it
+if __name__ == "__main__":
+    dns = DNS()
+    dns.main()
