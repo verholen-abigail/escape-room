@@ -30,7 +30,7 @@ print("Keys found:", list(records.keys()))
 
 
 def decode_value(encoded_value):
-    # Task 3: split at the first ":" into encoding name and payload
+     split at the first ":" into encoding name and payload
     encoding, payload = encoded_value.split(":", 1)
 
     if encoding == "b64":
@@ -46,7 +46,7 @@ def decode_value(encoded_value):
     else:
         raise ValueError("Unknown encoding: " + encoding)
 
-    # Task 6: bytes -> text. This fails with an error if it is not valid UTF-8.
+     bytes -> text. This fails with an error if it is not valid UTF-8.
     text = raw_bytes.decode("utf-8")
 
     # return BOTH the text and the encoding name, we need both later
