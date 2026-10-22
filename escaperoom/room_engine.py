@@ -1,10 +1,13 @@
 # create all rooms and flavour text
+# import the room classes
 import rooms.base as base
 import rooms.dns as dns
 import rooms.final_gate as fg
 import rooms.malware as mal
 import rooms.soc as soc
 import rooms.vault as vault
+
+from .engine import Engine
 
 rooms = {
     "intro": base.Room(
@@ -45,3 +48,7 @@ rooms = {
     ),
 
 }
+
+engine = Engine(rooms, rooms["intro"])
+
+Engine.start_game(engine)
