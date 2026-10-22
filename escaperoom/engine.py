@@ -6,6 +6,10 @@ class TestEngine:
         self.running = True
         self.hints = []
 
+    def help(self):
+        print(f"look \nmove \ninspect \nuse \ninventory \nhint \nsave \nload \nquit")
+        return
+
     def look(self):
         return self.current_room.look()
 
@@ -125,6 +129,9 @@ class TestEngine:
             
                 case ["quit"]:
                     engine.quit()
+
+                case ["help"]:
+                    engine.help()
                 
                 case _:
                     print("Unknown command") 
