@@ -1,5 +1,5 @@
 class Room:
-    def __init__(self, name, description, doors, items, locked=False, required_item=None):
+    def __init__(self, name, doors, items, description, locked=False, required_item=None):
         self.name = name
         self.description = description
         self.doors = doors

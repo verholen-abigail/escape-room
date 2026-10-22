@@ -1,30 +1,22 @@
 class Room:
-    def __init__(self, name, doors, items, dscr):
+    def __init__(self, name, doors, items, description, locked=False, required_item=None):
         self.name = name
+        self.description = description
         self.doors = doors
         self.items = items
-        self.dscr = dscr
+        self.locked = locked
+        self.required_item = required_item
 
     def arrival(self):
-        str = "You enter the" + self.name
-        if(not self.dscr):
-           str += self.dscr
-        return str
+        message = f"You enter the {self.name}.\n{self.description}\nDoors lead to: " + ", ".join(self.doors)
+
+        if self.items:
+               message += "\nItems here : " + ", ".join(self.items)
+        return message
 
     def look(self):
-            str = "You are in the" + self.name +". \n"
-            if(not self.doors.empty):
-                str += "Doors lead to:" + self.get_doors + ". \n"
-            if(not self.items.empty):
-                str += "Items avalible in the room are:" + self.get_items + ". \n"
-                                
-            
-            return str
+        message = f"You are in the {self.name}.\n{self.description}\nDoors lead to: " + ", ".join(self.doors)
 
-    def get_doors(self):
-            return self.doors
-
-    def get_items(self):
-                return self.items
-
-# base = Room("Intro Lobby", ["soc", "dns", "vault", "malware", "final"],[])
+        if self.items:
+             message += "\nItems here: " + ", ".join(self.items)
+        return message
