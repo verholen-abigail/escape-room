@@ -1,4 +1,4 @@
-class TestEngine:
+class Engine:
     def __init__(self, rooms, intro):
         self.rooms = rooms
         self.current_room = intro
