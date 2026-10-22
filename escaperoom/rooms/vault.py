@@ -1,7 +1,8 @@
 import re   # regular expressions
+import base
 
 
-class Vault:
+class Vault(base.Room):
 
     # SAFE{a-b-c} with optional spaces around braces, numbers and hyphens
     pattern = re.compile(r"SAFE\s*\{\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s*\}")

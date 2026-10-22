@@ -1,12 +1,14 @@
 import hmac       # for the HMAC
 import hashlib    # has SHA256
 
+import base
+
 from .dns import DNS
 from .vault import Vault
 from .malware import Malware
 
 
-class FinalGate:
+class FinalGate(base.Room):
 
     gate = dict()       # key value from final_gate.txt
 

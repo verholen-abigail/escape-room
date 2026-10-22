@@ -1,8 +1,9 @@
 import base64   # lets us decode Base64 text
 import codecs   # has a built-in ROT13 decoder
+import base
 
 
-class DNS:
+class DNS(base.Room):
 
     records = dict()    # key -> value from dns.cfg
 
