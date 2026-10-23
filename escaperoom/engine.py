@@ -5,6 +5,7 @@ class Engine:
         self.inventory = []
         self.running = True
         self.hints = []
+        self.tokens = []
 
     def help(self):
         print(f"look \nmove \ninspect \nuse \ninventory \nhint \nsave \nload \nquit")
@@ -37,18 +38,30 @@ class Engine:
 
         if item == "auth.log":
             #SOC Analyzer
+            self.rooms["soc"].main()
+            self.inventory.append("KEYPAD")
+            self.tokens.append({"keypad": self.rooms["soc"].get_token()})
             print("Soc Analyzer Placeholder")
 
         if item == "dns.cfg":
             #DNS Analyzer
+            self.rooms["dns"].main()
+            self.inventory.append("DNS")
+            self.tokens.append({"dns": self.rooms["dns"].get_token()})
             print("DNS Analyzer Placeholder")
 
         if item == "vault_dump.txt":
             #Vault Analyzer
+            self.rooms["vault"].main()
+            self.inventory.append("SAFE")
+            self.tokens.append({"safe": self.rooms["vault"].get_token()})
             print("Vault Analyzer Placeholder")
 
         if item == "proc_tree.jsonl":
             #Malware Analyzer
+            self.rooms["malware"].main()
+            self.inventory.append("PID")
+            self.tokens.append({"pid": self.rooms["malware"].get_token()})
             print("Malware Analyzer Placeholder")
         print(f"Inspecting {item}...")
 
