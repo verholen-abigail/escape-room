@@ -8,7 +8,8 @@ class Engine:
         self.tokens = []
 
     def help(self):
-        print(f"look \nmove \ninspect \nuse \ninventory \nhint \nsave \nload \nquit")
+        print("""look \nmove <room> \ninspect <item in room> \nuse <item in inventory>
+            \ninventory \nhint \nsave \nload \nquit""")
         return
 
     def look(self):
@@ -77,7 +78,8 @@ class Engine:
         return "Inventory: " + ", ".join(self.inventory)
     
     def hint(self):
-        print("Hint: ...") 
+        print("""Hint: try looking in rooms, inspecting items, or moving to new rooms. \n
+            Use "help" for a list of all commands.""") 
 
     def save_game(self):
         filename = input("Enter save file name: ")
