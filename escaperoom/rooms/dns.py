@@ -15,6 +15,17 @@ class DNS(base.Room):
 
     token = ""          # the final word, the DNS token
 
+    # return the token
+    def get_token(self):
+        return self.token
+
+    # return the transcript lines
+    def get_transcript(self):
+        return """TOKEN[DNS]= {self.token} \n
+            EVIDENCE[DNS].KEY= {self.hint_name} \n
+            EVIDENCE[DNS].ENCODING= {self.hint_encoding} \n
+            EVIDENCE[DNS].DECODED_LINE= {self.sentence}"""
+
     # read the file and fill the records dictionary
     def set_records(self):
 
@@ -67,10 +78,7 @@ class DNS(base.Room):
         # remove the final '.', take the last word
         self.token = self.sentence.rstrip(".").split()[-1]
 
-        print("TOKEN[DNS]=" + self.token)
-        print("EVIDENCE[DNS].KEY=" + self.hint_name)
-        print("EVIDENCE[DNS].ENCODING=" + self.hint_encoding)
-        print("EVIDENCE[DNS].DECODED_LINE=" + self.sentence)
+        print(self.get_transcript())
 
 
 # only run when this file is run directly while testing, not when the game imports it

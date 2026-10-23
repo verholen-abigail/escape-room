@@ -15,6 +15,16 @@ class Vault(base.Room):
 
     check = ""          # the checksum, a+b=c
 
+    # return the token
+    def get_token(self):
+        return self.token
+
+    # return the transcript lines
+    def get_transcript(self):
+        return """TOKEN[SAFE]= {self.token} \n
+            EVIDENCE[SAFE].MATCH= {self.matched_text} \n
+            EVIDENCE[SAFE].CHECK= {self.check} """
+
     # read the file and keep every candidate where a + b == c
     def set_found(self):
 
@@ -55,9 +65,7 @@ class Vault(base.Room):
         self.token = str(a) + "-" + str(b) + "-" + str(c)
         self.check = str(a) + "+" + str(b) + "=" + str(c)
 
-        print("TOKEN[SAFE]=" + self.token)
-        print('EVIDENCE[SAFE].MATCH="' + self.matched_text + '"')
-        print("EVIDENCE[SAFE].CHECK=" + self.check)
+        print(self.get_transcript())
 
 
 # only run when this file is run directly to test, not when the game imports it
