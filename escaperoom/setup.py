@@ -47,6 +47,13 @@ rooms = {
         required_item="VAULT_KEY"
     ),
 
+    "final_gate": fg.FinalGate(
+        "final_gate",
+        ["final gate"],
+        [],
+        "INSERT FLAVOUR TEXT"
+    )
+
 }
 
 engine = Engine(rooms, rooms["intro"])
