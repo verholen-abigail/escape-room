@@ -1,11 +1,9 @@
 class Room:
-    def __init__(self, name, doors, items, description, locked=False, required_item=None):
+    def __init__(self, name, doors, items, description):
         self.name = name
         self.description = description
         self.doors = doors
         self.items = items
-        self.locked = locked
-        self.required_item = required_item
 
     def arrival(self):
         message = f"You enter the {self.name}.\n{self.description}\nDoors lead to: " + ", ".join(self.doors)

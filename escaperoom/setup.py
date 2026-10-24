@@ -42,9 +42,7 @@ rooms = {
         "vault",
         ["intro"],
         [],
-        "A heavily secured vault.",
-        locked=True,
-        required_item="VAULT_KEY"
+        "A heavily secured vault."
     ),
 
     "final_gate": fg.FinalGate(
