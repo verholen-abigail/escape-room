@@ -17,7 +17,7 @@ class Vault:
     # read the file and keep every candidate where a + b == c
     def set_found(self):
 
-        file = open("data/vault_dump.txt", encoding="utf-8")   # open file
+        file = open("../../data/vault_dump.txt", encoding="utf-8")   # open file
 
         for line in file:                         # go through each line
             match = self.pattern.search(line)     # look for the pattern

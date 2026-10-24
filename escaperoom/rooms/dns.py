@@ -5,19 +5,15 @@ import codecs   # has a built-in ROT13 decoder
 class DNS:
 
     records = dict()    # key -> value from dns.cfg
-
     hint_name = ""      # which hint is the real one, e.g. hint2
-
     hint_encoding = ""  # b64 or rot13+b64
-
     sentence = ""       # the decoded sentence
-
     token = ""          # the final word, the DNS token
 
     # read the file and fill the records dictionary
     def set_records(self):
 
-        file = open("data/dns.cfg", encoding="utf-8")   # open the file
+        file = open("../../data/dns.cfg", encoding="utf-8")   # open the file
 
         for line in file:                # go through each line
             line = line.strip()          # remove spaces/newlines
