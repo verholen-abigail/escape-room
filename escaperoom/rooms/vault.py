@@ -20,6 +20,7 @@ class Vault(Room):
         return self.token
 
     # return the transcript lines
+        # f-string so the values in { } are filled in, without the f it printed {self.token}
     def get_transcript(self):
         return f"""TOKEN[SAFE]= {self.token}
 EVIDENCE[SAFE].MATCH= {self.matched_text}
@@ -68,7 +69,7 @@ EVIDENCE[SAFE].CHECK= {self.check} """
         print(self.get_transcript())
 
 
-# only run when this file is run directly to test, not when the game imports it
+
 if __name__ == "__main__":
     vault = Vault()
     vault.main()

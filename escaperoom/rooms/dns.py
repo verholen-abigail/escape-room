@@ -19,6 +19,7 @@ class DNS(Room):
         return self.token
 
     # return the transcript lines
+        # f-string so the values in { } are filled in, without the f it printed {self.token}
     def get_transcript(self):
         return f"""TOKEN[DNS]= {self.token}
 EVIDENCE[DNS].KEY= {self.hint_name} 
