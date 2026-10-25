@@ -12,7 +12,7 @@ from .engine import Engine
 rooms = {
     "intro": base.Room(
         "intro",
-        ["soc","dns","vault","malware","final"], 
+        ["soc","dns","vault","malware","final_gate"], 
         [],
         "A terminal blinks in the corner."
     ),
@@ -47,8 +47,8 @@ rooms = {
 
     "final_gate": fg.FinalGate(
         "final_gate",
-        ["final gate"],
-        ["gate"],
+        ["intro"],
+        ["final_gate.txt"],
         "You stand before the Final Gate. The console asks for proof."
     )
 
