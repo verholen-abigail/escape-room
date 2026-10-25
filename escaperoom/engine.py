@@ -1,3 +1,5 @@
+import ast
+
 class Engine:
     def __init__(self, rooms, intro, transcript):
         # game state info
@@ -101,7 +103,14 @@ inventory \nhint \nsave \nload \nquit""")
         with open(filename + ".txt", 'w') as file:
             file.write(self.current_room.name + "\n")
             file.write(",".join(self.inventory)+ "\n")
-            file.write("$".join(self.tokens))
+
+            # change dicts to str
+            str_tokens = []
+            for token in self.tokens:
+                str_tokens.append(str(token))
+            file.write("$".join(str_tokens))
+
+        print(f"[Game] Your game has been saved.")
 
     # loads game 
     def load_game(self):
@@ -111,6 +120,7 @@ inventory \nhint \nsave \nload \nquit""")
             with open(filename + ".txt", 'r') as file:
                 room_name = file.readline().strip()
                 inventory = file.readline().strip()
+                all_tokens = file.readline().strip()
 
             if room_name in self.rooms:
                 self.current_room = self.rooms[room_name]
@@ -122,12 +132,24 @@ inventory \nhint \nsave \nload \nquit""")
                 self.inventory = inventory.split(",")
             else:
                 self.inventory = []
+
+            if all_tokens:
+                # split the tokens into the format 
+                tokens = all_tokens.split("$")
+                for token in tokens:
+                    try:
+                        self.tokens.append(ast.literal_eval(token))
+                    except:
+                        print("Error with token parsing")
+
+            print(f"[Game] Your game has been loaded. You are now in {room_name}.")
+
         except FileNotFoundError:
             print("Save file not found.")
 
     # write transcript and ends session
     def quit(self):
-        self.transcript.transcribe(self.room)
+        self.transcript.transcribe(self.rooms)
         self.running = False
 
 
