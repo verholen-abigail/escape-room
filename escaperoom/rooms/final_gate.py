@@ -2,7 +2,7 @@ import hmac       # for the HMAC
 import hashlib    # has SHA256
 
 from escaperoom.rooms.base import Room
-import base
+
 
 
 
@@ -18,8 +18,12 @@ class FinalGate(Room):
     digest = ""         # the HMAC in lowercase 
 
     # pull from inventory or final file
-    def gather_tokens(self, inventory : dict):
-        self.tokens = inventory
+        # tokens come from the engine, e.g. [{"dns": "vista"}, {"pid": 1431}]
+    def set_tokens(self, inventory):
+        for item in inventory:
+            for name, value in item.items():
+                # token_order uses capital names and the message needs text
+                self.tokens[name.upper()] = str(value)
         return
 
     # read final_gate.txt and fill the gate dictionary
@@ -66,8 +70,7 @@ class FinalGate(Room):
         return
 
     # the engine calls this with its list of collected tokens
-    def main(self, inventory):
-        self.gather_tokens(inventory)
+    def main(self):
         self.set_gate()
 
         # only continue if all four tokens were found
