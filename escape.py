@@ -1,4 +1,4 @@
-from escaperoom.test_engine import engine, TestEngine
+from escaperoom.setup import start
 
 if __name__ == "__main__":
-    TestEngine.start_game(engine)
+    start()

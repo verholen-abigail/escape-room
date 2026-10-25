@@ -1,11 +1,11 @@
 # create all rooms and flavour text
 # import the room classes
-import rooms.base as base
-import rooms.dns as dns
-import rooms.final_gate as fg
-import rooms.malware as mal
-import rooms.soc as soc
-import rooms.vault as vault
+import escaperoom.rooms.base as base
+import escaperoom.rooms.dns as dns
+import escaperoom.rooms.final_gate as fg
+import escaperoom.rooms.malware as mal
+import escaperoom.rooms.soc as soc
+import escaperoom.rooms.vault as vault
 
 from .engine import Engine
 
@@ -28,34 +28,33 @@ rooms = {
         "dns",
         ["intro"],
         ["dns.cfg"],
-        "A DNS analysis terminal."
+        "The walls are covered with scribbled key=value pairs."
     ),
 
     "malware": mal.Malware(
         "malware",
         ["intro"],
         ["proc_tree.jsonl"],
-        "Malware creeps along the walls."
+        "A process graph flickers; exfil hides behind an innocent chain."
     ),
     
     "vault": vault.Vault(
         "vault",
         ["intro"],
-        [],
-        "A heavily secured vault.",
-        locked=True,
-        required_item="VAULT_KEY"
+        ["vault_dump.txt"],
+        "A noisy dump scrolls past. Somewhere a SAFE{a-b-c} hides."
     ),
 
     "final_gate": fg.FinalGate(
         "final_gate",
         ["final gate"],
-        [],
-        "INSERT FLAVOUR TEXT"
+        ["gate"],
+        "You stand before the Final Gate. The console asks for proof."
     )
 
 }
 
 engine = Engine(rooms, rooms["intro"])
 
-Engine.start_game(engine)
+def start():
+    Engine.start_game(engine)

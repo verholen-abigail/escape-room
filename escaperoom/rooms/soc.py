@@ -1,6 +1,6 @@
-import base
+from escaperoom.rooms.base import Room
 
-class SOC(base.Room):
+class SOC(Room):
 
     # return the token
     def get_token(self):
