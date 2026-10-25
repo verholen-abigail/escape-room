@@ -20,9 +20,9 @@ class DNS(Room):
 
     # return the transcript lines
     def get_transcript(self):
-        return f"""TOKEN[DNS]= {self.token} \n
-EVIDENCE[DNS].KEY= {self.hint_name} \n
-EVIDENCE[DNS].ENCODING= {self.hint_encoding} \n
+        return f"""TOKEN[DNS]= {self.token}
+EVIDENCE[DNS].KEY= {self.hint_name} 
+EVIDENCE[DNS].ENCODING= {self.hint_encoding} 
 EVIDENCE[DNS].DECODED_LINE= {self.sentence}"""
 
     # read the file and fill the records dictionary

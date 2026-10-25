@@ -21,8 +21,8 @@ class Vault(Room):
 
     # return the transcript lines
     def get_transcript(self):
-        return f"""TOKEN[SAFE]= {self.token} \n
-EVIDENCE[SAFE].MATCH= {self.matched_text} \n
+        return f"""TOKEN[SAFE]= {self.token}
+EVIDENCE[SAFE].MATCH= {self.matched_text}
 EVIDENCE[SAFE].CHECK= {self.check} """
 
     # read the file and keep every candidate where a + b == c

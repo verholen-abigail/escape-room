@@ -2,9 +2,6 @@ import hmac       # for the HMAC
 import hashlib    # has SHA256
 
 from escaperoom.rooms.base import Room
-import base
-
-
 
 
 class FinalGate(Room):
