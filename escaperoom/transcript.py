@@ -5,9 +5,12 @@ class Transcript:
 
     def transcribe(self, rooms: list):
         try:
-            with open(self.file , 'w') as file:
+            # opens the file or creates it
+            with open(self.file , 'w+') as file:
+                # clears file incase it exists
+                file.truncate()
                 for room in rooms:
-                    if(not room.token==""):
+                    if(not room.get_token()==""):
                         file.write(room.get_transcript() + "\n")
         except:
             print("Something went wrong with the transcript.")
@@ -15,4 +18,4 @@ class Transcript:
     def save_transscript():
         pass
 
-    
+
