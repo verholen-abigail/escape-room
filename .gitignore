@@ -1,3 +1,8 @@
+# Temp files/local files
+
+run.txt
+save1.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
