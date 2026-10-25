@@ -57,5 +57,5 @@ rooms = {
 
 
 def start(room : str, transcript):
-    engine = Engine(rooms, rooms[room])
-    Engine.start_game(engine, transcript)
+    engine = Engine(rooms, rooms[room], transcript)
+    Engine.start_game(engine)
