@@ -1,20 +1,26 @@
 class Engine:
-    def __init__(self, rooms, intro):
+    def __init__(self, rooms, intro, transcript):
+        # game state info
         self.rooms = rooms
         self.current_room = intro
         self.inventory = []
-        self.running = True
-        self.hints = []
         self.tokens = []
 
+        self.running = True
+        self.transcript = transcript
+        
+
+    # list of commands avalible to the user
     def help(self):
-        print("""look \nmove <room> \ninspect <item in room> \nuse <item in inventory>
-            \ninventory \nhint \nsave \nload \nquit""")
+        print("""look \nmove <room> \ninspect <item in room> \nuse <door or gate>
+inventory \nhint \nsave \nload \nquit""")
         return
 
+    # relays the description of the current room
     def look(self):
         return self.current_room.look()
 
+    # moves to a new room if the doorway exists
     def move(self, room):
             if room not in self.rooms :
                 print(f"{room} does not exist.")
@@ -29,6 +35,7 @@ class Engine:
             self.current_room = destination
             print(self.current_room.arrival())
 
+    # inspects the item in that room and adds the found inventory and tokens
     def inspect(self, item):
         if item not in self.current_room.items:
             print(f"There is no {item} here.")
@@ -69,7 +76,7 @@ class Engine:
             case _:
                 print("Unknown item/room paring") 
         
-
+    # using the final gate
     def use(self, item):
         if item == "gate" and self.current_room == self.rooms["final_gate"]:
             self.rooms["final_gate"].set_tokens(self.tokens)
@@ -77,23 +84,26 @@ class Engine:
         else:
             print(f"You can't seem to use {item}.")
 
+    # shows current inventory
     def show_inventory(self):
         if not self.inventory:
             return "Your inventory is empty."
         return "Inventory: " + ", ".join(self.inventory)
-    
+
+    # prints a hint for the user
     def hint(self):
-        print("""Hint: try looking in rooms, inspecting items, or moving to new rooms. \n
+        print("""Hint: try looking in rooms, inspecting items, or moving to new rooms.
             Use "help" for a list of all commands.""") 
 
+    # saves game with critical information
     def save_game(self):
         filename = input("Enter save file name: ")
         with open(filename + ".txt", 'w') as file:
             file.write(self.current_room.name + "\n")
-            file.write(",".join(self.inventory))
+            file.write(",".join(self.inventory)+ "\n")
             file.write("$".join(self.tokens))
 
-
+    # loads game 
     def load_game(self):
         filename = input("Enter save file name: ")
 
@@ -115,11 +125,16 @@ class Engine:
         except FileNotFoundError:
             print("Save file not found.")
 
+    # write transcript and ends session
     def quit(self):
+        self.transcript.transcribe(self.room)
         self.running = False
 
-       
+
+    # starts engine and is the main loop 
     def start_game(engine):
+        print("[Game] Cyber Escape Room started. Type 'help' for commands.")
+
         while engine.running:
             command = input("> ")
 
