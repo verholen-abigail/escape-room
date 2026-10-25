@@ -23,8 +23,8 @@ class Vault(Room):
         # f-string so the values in { } are filled in, without the f it printed {self.token}
     def get_transcript(self):
         return f"""TOKEN[SAFE]= {self.token} \n
-            EVIDENCE[SAFE].MATCH= {self.matched_text} \n
-            EVIDENCE[SAFE].CHECK= {self.check} """
+             EVIDENCE[SAFE].MATCH= {self.matched_text} \n
+             EVIDENCE[SAFE].CHECK= {self.check} """
 
     # read the file and keep every candidate where a + b == c
     def set_found(self):

@@ -54,7 +54,8 @@ rooms = {
 
 }
 
-engine = Engine(rooms, rooms["intro"])
 
-def start():
-    Engine.start_game(engine)
+
+def start(room : str, transcript):
+    engine = Engine(rooms, rooms[room])
+    Engine.start_game(engine, transcript)

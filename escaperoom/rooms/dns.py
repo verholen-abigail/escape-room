@@ -22,9 +22,9 @@ class DNS(Room):
         # f-string so the values in { } are filled in, without the f it printed {self.token}
     def get_transcript(self):
         return f"""TOKEN[DNS]= {self.token} \n
-            EVIDENCE[DNS].KEY= {self.hint_name} \n
-            EVIDENCE[DNS].ENCODING= {self.hint_encoding} \n
-            EVIDENCE[DNS].DECODED_LINE= {self.sentence}"""
+EVIDENCE[DNS].KEY= {self.hint_name} \n
+EVIDENCE[DNS].ENCODING= {self.hint_encoding} \n
+EVIDENCE[DNS].DECODED_LINE= {self.sentence}"""
 
     # read the file and fill the records dictionary
     def set_records(self):
