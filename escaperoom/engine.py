@@ -150,6 +150,7 @@ inventory \nhint \nsave \nload \nquit""")
     # write transcript and ends session
     def quit(self):
         self.transcript.transcribe(self.rooms)
+        print("[Game] Thank you for playing.")
         self.running = False
 
 
