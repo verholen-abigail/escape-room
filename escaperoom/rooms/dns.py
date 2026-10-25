@@ -1,9 +1,8 @@
 import base64   # lets us decode Base64 text
 import codecs   # has a built-in ROT13 decoder
-import base
+from escaperoom.rooms.base import Room
 
-
-class DNS(base.Room):
+class DNS(Room):
 
     records = dict()    # key -> value from dns.cfg
 

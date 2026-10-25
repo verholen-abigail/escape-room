@@ -1,8 +1,8 @@
 import re   # regular expressions
-import base
+from escaperoom.rooms.base import Room
 
 
-class Vault(base.Room):
+class Vault(Room):
 
     # SAFE{a-b-c} with optional spaces around braces, numbers and hyphens
     pattern = re.compile(r"SAFE\s*\{\s*(\d+)\s*-\s*(\d+)\s*-\s*(\d+)\s*\}")

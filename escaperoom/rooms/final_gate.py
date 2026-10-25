@@ -1,14 +1,9 @@
 import hmac       # for the HMAC
 import hashlib    # has SHA256
 
-import base
+from escaperoom.rooms.base import Room
 
-from .dns import DNS
-from .vault import Vault
-from .malware import Malware
-
-
-class FinalGate(base.Room):
+class FinalGate(Room):
 
     gate = dict()       # key value from final_gate.txt
 
