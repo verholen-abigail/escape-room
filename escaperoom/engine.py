@@ -25,10 +25,7 @@ class Engine:
                 return
             
             destination = self.rooms[room]
-            if destination.locked:
-                if destination.required_item not in self.inventory:
-                    print(f"The {room} is locked. You need {destination.required_item}.")
-                    return
+            
             self.current_room = destination
             print(self.current_room.arrival())
 
@@ -37,40 +34,48 @@ class Engine:
             print(f"There is no {item} here.")
             return
 
-        if item == "auth.log":
-            #SOC Analyzer
-            self.rooms["soc"].main()
-            self.inventory.append("KEYPAD")
-            self.tokens.append({"keypad": self.rooms["soc"].get_token()})
-            print("Soc Analyzer Placeholder")
-
-        if item == "dns.cfg":
-            #DNS Analyzer
-            self.rooms["dns"].main()
-            self.inventory.append("DNS")
-            self.tokens.append({"dns": self.rooms["dns"].get_token()})
-            print("DNS Analyzer Placeholder")
-
-        if item == "vault_dump.txt":
-            #Vault Analyzer
-            self.rooms["vault"].main()
-            self.inventory.append("SAFE")
-            self.tokens.append({"safe": self.rooms["vault"].get_token()})
-            print("Vault Analyzer Placeholder")
-
-        if item == "proc_tree.jsonl":
-            #Malware Analyzer
-            self.rooms["malware"].main()
-            self.inventory.append("PID")
-            self.tokens.append({"pid": self.rooms["malware"].get_token()})
-            print("Malware Analyzer Placeholder")
         print(f"Inspecting {item}...")
 
+        match item :
+
+            case "auth.log":
+                #SOC Analyzer
+                self.rooms["soc"].main()
+                self.inventory.append("KEYPAD")
+                self.tokens.append({"keypad": self.rooms["soc"].get_token()})
+                
+            case "dns.cfg":
+                #DNS Analyzer
+                self.rooms["dns"].main()
+                self.inventory.append("DNS")
+                self.tokens.append({"dns": self.rooms["dns"].get_token()})
+
+            case "vault_dump.txt":
+                #Vault Analyzer
+                self.rooms["vault"].main()
+                self.inventory.append("SAFE")
+                self.tokens.append({"safe": self.rooms["vault"].get_token()})
+            
+            case "proc_tree.jsonl":
+                #Malware Analyzer
+                self.rooms["malware"].main()
+                self.inventory.append("PID")
+                self.tokens.append({"pid": self.rooms["malware"].get_token()})
+           
+            case "gate":
+                #Final Gate
+                print("This gate may be able to be <used>")
+
+            case _:
+                print("Unknown item/room paring") 
+        
+
     def use(self, item):
-        if item in self.inventory:
-            print(f"Using {item}...")
+        if item == "gate" and self.current_room == self.rooms["final_gate"]:
+            self.rooms["final_gate"].set_tokens(self.tokens)
+            self.rooms["final_gate"].main()
         else:
-            print(f"You don't have {item} in your inventory.")
+            print(f"You can't seem to use {item}.")
 
     def show_inventory(self):
         if not self.inventory:
@@ -86,6 +91,7 @@ class Engine:
         with open(filename + ".txt", 'w') as file:
             file.write(self.current_room.name + "\n")
             file.write(",".join(self.inventory))
+            file.write("$".join(self.tokens))
 
 
     def load_game(self):
