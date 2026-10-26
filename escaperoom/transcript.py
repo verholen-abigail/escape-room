@@ -10,8 +10,8 @@ class Transcript:
                 # clears file incase it exists
                 file.truncate()
                 for room in rooms:
-                    if(not room.get_token()==""):
-                        file.write(room.get_transcript() + "\n")
+                    if(not rooms[room].get_token()==""):
+                        file.write(rooms[room].get_transcript() + "\n")
         except:
             print("Something went wrong with the transcript.")
 

@@ -5,7 +5,7 @@ class Room:
         self.doors = doors
         self.items = items
 
-    def get_token():
+    def get_token(self):
         return ""
 
     def arrival(self):
