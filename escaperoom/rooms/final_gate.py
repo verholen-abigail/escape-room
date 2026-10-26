@@ -14,6 +14,12 @@ class FinalGate(Room):
 
     digest = ""         # the HMAC in lowercase 
 
+    token = ""          # dummy value to show if main has been called
+
+    # get dummy token
+    def get_token(self):
+        return self.token()
+
     # pull from inventory or final file
         # tokens come from the engine, e.g. [{"dns": "vista"}, {"pid": 1431}]
     def set_tokens(self, inventory):
@@ -22,6 +28,12 @@ class FinalGate(Room):
                 # token_order uses capital names and the message needs text
                 self.tokens[name.upper()] = str(value)
         return
+    
+    # the transcript
+    def get_transcript(self):
+        return f"""FINAL_GATE=PENDING
+MSG= + {self.msg}
+HMAC= {self.digest} """
 
     # read final_gate.txt and fill the gate dictionary
     def set_gate(self):
@@ -72,10 +84,11 @@ class FinalGate(Room):
 
         # only continue if all four tokens were found
         if(not self.build_msg()):
+            print("[Final Gate] not all tokens were found. The gate remains shut.")
             return
 
         self.build_hmac()
 
-        print("FINAL_GATE=PENDING")
-        print("MSG=" + self.msg)
-        print("HMAC=" + self.digest)
+        self.token = "gate"
+
+        print(self.get_transcript())
