@@ -18,7 +18,7 @@ class FinalGate(Room):
 
     # get dummy token
     def get_token(self):
-        return self.token()
+        return self.token
 
     # pull from inventory or final file
         # tokens come from the engine, e.g. [{"dns": "vista"}, {"pid": 1431}]

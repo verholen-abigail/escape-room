@@ -15,7 +15,3 @@ class Transcript:
         except:
             print("Something went wrong with the transcript.")
 
-    def save_transscript():
-        pass
-
-
