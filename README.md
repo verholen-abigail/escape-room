@@ -43,6 +43,4 @@ The data/ directory contains the groups evidence files:
 
 
 # Authors
-Ananya Kasiraj
-Abigail Verholen
-Zane Stephens
+Ananya Kasiraj, Abigail Verholen, and Zane Stephens
