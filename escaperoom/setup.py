@@ -48,7 +48,7 @@ rooms = {
     "final_gate": fg.FinalGate(
         "final_gate",
         ["intro"],
-        ["final_gate.txt"],
+        ["gate"],
         "You stand before the Final Gate. The console asks for proof."
     )
 
