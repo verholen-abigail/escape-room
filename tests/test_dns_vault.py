@@ -1,7 +1,8 @@
 # Easy tests for the DNS and Vault rooms.
-# Run from the escape-room folder:  python test_rooms_easy.py
+# Run from the test folder:  python test_rooms_easy.py
 # Every check prints PASS or FAIL, and the program keeps going.
-
+import sys
+sys.path.append('./')
 from escaperoom.rooms.dns import DNS
 from escaperoom.rooms.vault import Vault
 

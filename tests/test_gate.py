@@ -1,5 +1,7 @@
 # run from the repo root:  python test_gate.py
 # FAKE values, only for testing. Do not commit this file.
+import sys
+sys.path.append('./')
 from escaperoom.rooms.final_gate import FinalGate
 
 fake_tokens = [
