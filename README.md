@@ -42,5 +42,10 @@ The data/ directory contains the groups evidence files:
 * final_gate.txt
 
 
+# End Result
+
+An example of the completed final run.txt file can be found in the run-completed.txt file.
+
+
 # Authors
 Ananya Kasiraj, Abigail Verholen, and Zane Stephens
